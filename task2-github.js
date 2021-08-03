@@ -1,25 +1,25 @@
 const axios = require("axios").default;
 
 async function getData(url) {
-    return (await axios.get(url)).data;
-  }
+  return (await axios.get(url)).data;
+}
 
-let urlUsers = 'https://jsonplaceholder.typicode.com/users'
-let urlPosts = 'https://jsonplaceholder.typicode.com/posts'
+let urlUsers = "https://jsonplaceholder.typicode.com/users";
+let urlPosts = "https://jsonplaceholder.typicode.com/posts";
 
 async function mergeData() {
-    const users = await getData(urlUsers);
-    const posts = await getData(urlPosts);
+  const users = await getData(urlUsers);
+  const posts = await getData(urlPosts);
 
-    // No1
-    // cara 1
-    const usersPosts = posts.map((v) => {
-        v.user = users.find((u) => u.id === v.userId);
-        return v;
-      });
-      console.log(usersPosts);
+  // No1
+  // cara 1
+  const usersPosts = posts.map((v) => {
+    v.user = users.find((u) => u.id === v.userId);
+    return v;
+  });
+  console.log(usersPosts);
 
-    // cara 2
+  // cara 2
   posts.forEach((post) => {
     post.user = users.find((user) => user.id === post.userId);
   });
@@ -37,8 +37,6 @@ async function mergeData() {
     }
   }
   console.log(postUser);
-
-
 }
 
-mergeData()
+mergeData();

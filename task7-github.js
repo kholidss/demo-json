@@ -1,5 +1,5 @@
 const axios = require("axios").default;
-const ObjectsToCsv = require("objects-to-csv");
+var fs = require("fs");
 
 async function getData(url) {
   return (await axios.get(url)).data;
@@ -43,15 +43,22 @@ async function convData() {
     return { full_name: a.full_name, email: a.email, phone: a.phone };
   });
 
-  (async () => {
-    const csv = new ObjectsToCsv(mergeData);
+  let toCSV = mergeData
+    .map((x) => {
+      return Object.values(x).toString();
+    })
+    .join("\n");
 
-    // Save to file:
-    await csv.toDisk("./test.csv");
+  fs.writeFile("taks7-github-csv.csv", toCSV, function (err) {
+    if (err) throw err;
+    console.log("File is created successfully.");
+  });
 
-    // Return the CSV file as string:
-    console.log(await csv.toString());
-  })();
+  //   (async () => {
+  //     const csv = new ObjectsToCsv(mergeData);
+  //     await csv.toDisk("./test.csv");
+  //     console.log(await csv.toString());
+  //   })();
 }
 
 convData();

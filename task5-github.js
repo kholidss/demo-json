@@ -6,12 +6,6 @@ let data = JSON.parse(rawdata);
 // No 1
 function no1() {
   let varNo1 = data.filter((a) => a.created_at.match(/02/));
-
-  let toJson = JSON.stringify(varNo1);
-  let fs = require("fs");
-  fs.writeFile("task5-1-jsonfile.json", toJson, function (err, result) {
-    if (err) console.log("error", err);
-  });
 }
 // no1();
 
@@ -26,14 +20,9 @@ function no2(cusName) {
           .reduce((a, b) => a + b))
     )
     .reduce((a, b) => a + b);
-
-  let toJson = JSON.stringify(varNo2);
-  let fs = require("fs");
-  fs.writeFile("task5-2-jsonfile.json", toJson, function (err, result) {
-    if (err) console.log("error", err);
-  });
+  console.log(varNo2);
 }
-// no2("Ari");
+no2("Ari");
 
 // No 3
 let no3 = (price) => {
@@ -50,11 +39,5 @@ let no3 = (price) => {
     .map((c) => c.customer.name);
 
   let grandtotal = [...new Set(arrPrice)];
-
-  let toJson = JSON.stringify(grandtotal);
-  let fs = require("fs");
-  fs.writeFile("task5-3-jsonfile.json", toJson, function (err, result) {
-    if (err) console.log("error", err);
-  });
 };
 // no3(300000);
